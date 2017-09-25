@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 37,
+  "id": "eed97262-d895-4ead-b92c-d8bc5ccc9cd9",
+  "activities": [
+    {
+      "id": "6c01c5d1-07c9-47f7-bb9e-3ab80f3949d8",
+      "name": "BankReviewTrainingSample",
+      "blocks": [
+        {
+          "id": "aab80155-b938-402e-87bf-655e5f2be06d",
+          "type": "Microsoft.DPrep.ReferenceActivityBlock",
+          "arguments": {
+            "reference": {
+              "referenceType": 1,
+              "referenceContainerPath": "./BankReviewTrainingSample.dsource",
+              "referencedActivityId": "60d909ab-067f-4f42-b3a8-d441c24907e7",
+              "referencedBranchId": null,
+              "referencedStep": null,
+              "anonymousSteps": null
+            }
+          }
+        }
+      ],
+      "inspectors": [
+        {
+          "id": "20ee5986-b580-496b-b89b-cb9963334d44",
+          "type": "Microsoft.DPrep.DataQualityInspector",
+          "arguments": {},
+          "reference": {
+            "referenceType": 0,
+            "referenceContainerPath": null,
+            "referencedActivityId": "6c01c5d1-07c9-47f7-bb9e-3ab80f3949d8",
+            "referencedBranchId": null,
+            "referencedStep": {
+              "stepReferenceType": 1,
+              "referencedStepId": null,
+              "fallback": 1
+            },
+            "anonymousSteps": null
+          },
+          "isBackground": true
+        }
+      ]
+    }
+  ],
+  "runConfigurations": []
+}
