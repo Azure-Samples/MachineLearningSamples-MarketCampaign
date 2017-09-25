@@ -57,7 +57,7 @@ The folder structure is arranged as follows:
 - Data: Contains the dataset used in the solution  
 - Docs: Contains end-to-end tutorial in the forms of jupyter notebook and markdown.
 
-Practice the tutorial by following the [tutorial-market-campaign](docs/tutorial-market-campaign.md).
+Practice the tutorial by following the [tutorial-market-campaign](docs/tutorial-market-campaign.md) and [tutorial-review-sentiment](docs/tutorial-review-sentiment.md)
 
 ## Conclusion
 
