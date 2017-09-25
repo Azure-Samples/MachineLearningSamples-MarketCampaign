@@ -1,0 +1,1 @@
+{"PrepareEnvironment": true, "Framework": "PySpark", "ArgumentVector": ["$file"], "Target": "myvm", "CondaDependenciesFile": null, "SparkDependenciesFile": null, "TrackedRun": true}
