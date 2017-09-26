@@ -58,11 +58,12 @@ The bank review data is from the credit karma website, called BankReviewTraining
 The folder structure is arranged as follows:
 
 _Data_: Contains the dataset used in the solution.
-_Code_: Contains all the code related to market campaign prediction with sentiment analysis using AMLWorkbench.  
+
+_Code_: Contains all the code related to market campaign prediction with sentiment analysis using AMLWorkbench.
+
 _Docs_: Contains end-to-end tutorial in the forms of jupyter notebook and markdown.
 
-| Part 1 - Market Campaign Prediction |
-|--------|------------|---------------|
+ Part 1 - Market Campaign Prediction
 | Folder | Sub-Folder | Realted Files |
 |--------|------------|---------------|
 | data   | NA       | 'BankMarketCampaignTrainingSample.csv' |
@@ -71,8 +72,8 @@ _Docs_: Contains end-to-end tutorial in the forms of jupyter notebook and markdo
 | docs   | notebook | 'BankMarketCampaignNoteBook.ipynb', 'BankMarketCampaignOperationalization.ipynb' |
 |        | media    | images  |
 |        | NA       | [tutorial-market-campaign.md](docs/tutorial-market-campaign.md) |
-| Part 2 - Review Sentiment Analysis  |
-|--------|------------|---------------|
+
+ Part 2 - Review Sentiment Analysis
 | Folder | Sub-Folder | Realted Files |
 |--------|------------|---------------|
 | data   | NA       | 'BankReviewTrainingSample.csv' |
@@ -80,7 +81,7 @@ _Docs_: Contains end-to-end tutorial in the forms of jupyter notebook and markdo
 |        | reviewsentiment | 'senti_schema.py', 'senti_service_schema.json', 'model_30.pkl' |
 | docs   | notebook | 'BankReviewSentimentNoteBook.ipynb', 'BankReviewSentimentOperationalization.ipynb' |
 |        | media    | images|
-|        | NA       | [tutorial-review-sentiment](docs/tutorial-review-sentiment.md)|
+|        | NA       | [tutorial-review-sentiment.md](docs/tutorial-review-sentiment.md)|
 
 Practice the end-to-end tutorial by following the [tutorial-market-campaign](docs/tutorial-market-campaign.md) and [tutorial-review-sentiment](docs/tutorial-review-sentiment.md)
 
