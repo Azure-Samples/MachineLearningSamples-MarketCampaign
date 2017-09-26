@@ -63,7 +63,8 @@ _Code_: Contains all the code related to market campaign prediction with sentime
 
 _Docs_: Contains end-to-end tutorial in the forms of jupyter notebook and markdown.
 
- Part 1 - Market Campaign Prediction
+### Part 1 - Market Campaign Prediction
+
 | Folder | Sub-Folder | Realted Files |
 |--------|------------|---------------|
 | data   | NA       | 'BankMarketCampaignTrainingSample.csv' |
@@ -73,7 +74,8 @@ _Docs_: Contains end-to-end tutorial in the forms of jupyter notebook and markdo
 |        | media    | images  |
 |        | NA       | [tutorial-market-campaign.md](docs/tutorial-market-campaign.md) |
 
- Part 2 - Review Sentiment Analysis
+### Part 2 - Review Sentiment Analysis
+
 | Folder | Sub-Folder | Realted Files |
 |--------|------------|---------------|
 | data   | NA       | 'BankReviewTrainingSample.csv' |
