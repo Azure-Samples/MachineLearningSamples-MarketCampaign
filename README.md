@@ -34,7 +34,7 @@ The aim of this solution is to demonstrate predictive market analytics using AML
 
 ## Use Case Overview
 
-A company, such as retail bank, wants to do market campaign prediction. The task is to build a pipeline that automatically analyze the bank market dataset, to predict the success of telemarketing calls for selling bank long-term deposits. The aim is to provide market intelligence for the bank and better target valuable customers and hence reduce marketing cost. In addition, the bank may also want to analyze customer feedback in order to provide additional insight to enhance market campaign prediction. This requires a pipeline that automatically analyzes customer feedback messages, to provide the overall sentiment for the bank, thus helping the bank gain extra insights from social media to optimize their market strategy.
+A company, such as retail bank, wants to do market campaign prediction. The task is to build a pipeline that automatically analyze the bank market dataset, to predict the success of telemarketing calls for selling bank long-term deposits. The aim is to provide market intelligence for the bank and better target valuable customers and hence reduce marketing cost. Moreover, the bank may also want to analyze customer feedback in order to provide additional insight to enhance market campaign prediction. This requires a pipeline that automatically analyzes customer feedback messages, to provide the overall sentiment for the bank, thus helping the bank gain extra information from social media to optimize their market strategy.
 
 Some of the factors contributing to bank market campaign include:
 
@@ -57,9 +57,9 @@ The bank review data is from the credit karma website, called BankReviewTraining
 
 The folder structure is arranged as follows:
 
-_data_: Contains the dataset used in the solution.
-_code_: Contains all the code related to market campaign prediction with sentiment analysis using AMLWorkbench.  
-_docs_: Contains end-to-end tutorial in the forms of jupyter notebook and markdown.
+_Data_: Contains the dataset used in the solution.
+_Code_: Contains all the code related to market campaign prediction with sentiment analysis using AMLWorkbench.  
+_Docs_: Contains end-to-end tutorial in the forms of jupyter notebook and markdown.
 
 | Part 1 - Market Campaign Prediction |
 |--------|------------|---------------|
