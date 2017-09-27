@@ -1,7 +1,7 @@
 address: 52.187.129.184
-baseDockerImage: microsoft/mmlspark:0.7
+baseDockerImage: microsoft/mmlspark:plus-0.7.91
 nativeSharedDirectory: ~/.azureml/share/
-password: AzureMlSecret=myvm#ldsvmadmin#8dbdf380924a421d9b68b8814b04d732
+password: AzureMlSecret=myvm#ldsvmadmin#2fcfd22a55c04a4abc184029e94ba4e0
 sharedVolumes: true
 type: remotedocker
 username: ldsvmadmin

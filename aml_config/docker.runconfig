@@ -5,7 +5,7 @@ ArgumentVector:
   - "$file"
 
 # The name of the compute target to use for this run.
-Target: "local"
+Target: "docker"
 
 # Environment variables set for the run.
 EnvironmentVariables:
@@ -27,7 +27,7 @@ SparkDependenciesFile: "aml_config/spark_dependencies.yml"
 # Automatically prepare the run environment as part of the run itself.
 # Manual preparation of a compute target can be perfomed with:
 # az ml experiment prepare --run-configuration <run configuration name>
-PrepareEnvironment: false
+PrepareEnvironment: true
 
 # Enable history tracking -- this allows status, logs, metrics, and outputs
 # to be collected by Azure ML Workbench and uploaded to the cloud project.

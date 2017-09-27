@@ -1,1 +1,10 @@
-{"PrepareEnvironment": true, "Framework": "PySpark", "ArgumentVector": ["$file"], "Target": "myvm", "CondaDependenciesFile": null, "SparkDependenciesFile": null, "TrackedRun": true}
+ArgumentVector:
+- $file
+CondaDependenciesFile: aml_config/conda_dependencies.yml
+EnvironmentVariables: null
+Framework: Python
+PrepareEnvironment: true
+SparkDependenciesFile: aml_config/spark_dependencies.yml
+Target: myvm
+TrackedRun: true
+UseSampling: true
