@@ -238,10 +238,10 @@ az ml env local
 
 To deploy the web service, you must have a model, a scoring script, and optionally a schema for the web service input data. The scoring script loads the dt.pkl file from the current folder and uses it to produce a new predicted class. The input to the model is features.
 
-To generate the scoring and schema files, execute the BankMarketCampaignSchemaGen.py file that comes with the sample project in the AMLWorkbench CLI command prompt using Python interpreter directly.
+To generate the scoring and schema files, execute the market_schema_gen.py file that comes with the sample project in the AMLWorkbench CLI command prompt using Python interpreter directly.
 
 ```
-python BankMarketCampaignSchemaGen.py
+python market_schema_gen.py
 ```
 
 This will create market_service_schema.json (this file contains the schema of the web service input)
@@ -249,6 +249,7 @@ This will create market_service_schema.json (this file contains the schema of th
 ### Model Management
 
 The real-time web service requires a modelmanagement account. This can be created using the following commands:
+
 ```
 az group create -l <location> -n <name>
 az ml account modelmanagement create -l <location> -g <resource group> -n <account name>
@@ -258,12 +259,21 @@ az ml account modelmanagement set -n <account name> -g <resource group>
 To create the real-time web service, run the following command:
 
 ```
-az ml service create realtime -f BankMarketCampaignScore.py --model-file dt.pkl -s market_service_schema.json -n marketservice -r python
+az ml service create realtime -f market_score.py --model-file dt.pkl -s market_service_schema.json -n marketservice -r python
 ```
+![service create](media/tutorial-market-campaign/marketservice_create.png)
+
+Run docker ps to see the churn image as shown below:
+
+![docker ps](media/tutorial-market-campaign/docker_ps.png)
+
 To test the service, execute the returned service run command as follows. For example, the command that is executed below is:
 
 ```
 az ml service run realtime -i marketservice -d "{\"input_df\": [{\"day\": 19, \"education\": \"unknown\", \"poutcome\": \"unknown\", \"age\": 30, \"default\": \"yes\", \"marital\": \"divorced\", \"loan\": \"no\", \"housing\": \"no\", \"contact\": \"telephone\", \"month\": \"oct\", \"balance\": 1787, \"campaign\": 1, \"job\": \"admin.\", \"duration\": 79, \"pdays\": -1, \"previous\": 0}]}"
 ```
+
+![service run](media/tutorial-market-campaign/marketservice_run.png)
+
 ## Congratulations!
 Great job! You have successfully run a training script in various compute environments, created a model, serialized the model, and operationalized the model through a Docker-based web service. 

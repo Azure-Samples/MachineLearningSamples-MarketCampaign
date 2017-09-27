@@ -84,6 +84,7 @@ train_x = train_x.values
 
 test_y = test['y_yes'].values
 test_x = test.drop('y_yes', axis=1)
+test_x = test_x.values
 
 # Initialize Sweep Parameter 
 

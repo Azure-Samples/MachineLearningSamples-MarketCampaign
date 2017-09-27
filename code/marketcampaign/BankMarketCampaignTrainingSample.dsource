@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 34,
+  "schemaVersion": 37,
   "id": "bf1955ca-02d2-4a07-865b-2e9f4d74ab0a",
   "activities": [
     {
@@ -39,31 +39,38 @@
             "columnConversion": [
               {
                 "columnId": "age",
-                "typeProperty": 3
+                "typeProperty": 3,
+                "typeArguments": {}
               },
               {
                 "columnId": "balance",
-                "typeProperty": 3
+                "typeProperty": 3,
+                "typeArguments": {}
               },
               {
                 "columnId": "campaign",
-                "typeProperty": 3
+                "typeProperty": 3,
+                "typeArguments": {}
               },
               {
                 "columnId": "previous",
-                "typeProperty": 3
+                "typeProperty": 3,
+                "typeArguments": {}
               },
               {
                 "columnId": "day",
-                "typeProperty": 3
+                "typeProperty": 3,
+                "typeArguments": {}
               },
               {
                 "columnId": "duration",
-                "typeProperty": 3
+                "typeProperty": 3,
+                "typeArguments": {}
               },
               {
                 "columnId": "pdays",
-                "typeProperty": 3
+                "typeProperty": 3,
+                "typeArguments": {}
               }
             ]
           }

@@ -1,9 +1,14 @@
-# This code snippet will load the referenced package and return a DataFrame.
-# If the code is run in a PySpark environment, then the code will return a
-# Spark DataFrame. If not, the code will return a Pandas DataFrame. You can
-# copy this code snippet to another code file as needed.
-from azureml.dataprep.package import run
+# Use the Azure Machine Learning data preparation package
+from azureml.dataprep import package
 
+# Use the Azure Machine Learning data collector to log various metrics
+from azureml.logging import get_azureml_logger
+logger = get_azureml_logger()
 
-# Use this DataFrame for further processing
-df = run('BankMarketCampaignTrainingSample.dprep', dataflow_idx=0)
+# This call will load the referenced package and return a DataFrame.
+# If run in a PySpark environment, this call returns a
+# Spark DataFrame. If not, it will return a Pandas DataFrame.
+df = package.run('BankMarketCampaignTrainingSample.dprep', dataflow_idx=0)
+
+# Remove this line and add code that uses the DataFrame
+df.head(10)

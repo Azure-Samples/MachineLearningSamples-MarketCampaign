@@ -7,7 +7,7 @@ $ az ml experiment submit -c local .\BankMarketCampaignModeling.py
 
 Run BankMarketCampaignModelingDocker.py in a local Docker container.
 ```
-$ az ml experiment submit -c docker-python .\BankMarketCampaignModelingDocker.py
+$ az ml experiment submit -c docker .\BankMarketCampaignModelingDocker.py
 ```
 
 Run BankMarketCampaignModelingDocker.py in a Docker Container on a Remote Machine.
