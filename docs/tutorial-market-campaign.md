@@ -133,7 +133,6 @@ az ml experiment submit -c docker .\BankMarketCampaignModeling.py
 ```
 This command pulls down a base Docker image, lays a conda environment on that base image based on the _conda_dependencies.yml_ file in your_aml_config_ directory, and then starts a Docker container. It then executes your script. You should see some Docker image construction messages in the CLI window. And in the end, you should see the exact same output as step 5.
 
-Below
 ### b) Run in a Docker container on a remote Linux machine
 
 To execute your script in a Docker container on a remote Linux machine, you need to have SSH access (using username and password) to that remote machine, and that remote machine must have the Docker engine installed. The easiest way to obtain such a Linux machine is to create a [Ubuntu-based Data Science Virtual Machine (DSVM)](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/microsoft-ads.linux-data-science-vm-ubuntu) on Azure. 
@@ -158,6 +157,11 @@ az ml experiment prepare -c myvm
 az ml experiment submit -c myvm .\BankMarketCampaignModelingDocker.py
 ```
 When the command is executed, the exact same thing happens as Step 6a except it happens on that remote machine. You should observe the exact same output information in the CLI window.
+
+The below images show you an example of docker environment and docker execution.
+
+![docker env](media/tutorial-market-campaign/docker_env.png)
+![docker execute](media/tutorial-market-campaign/docker_execute.png)
 
 ## Step 7. Explore Run History
 After you run the BankMarketCampaignModeling.py script a few times in the CLI window, go back to the Azure ML Workbench desktop app.
@@ -222,6 +226,8 @@ After the setup is complete, set the environment variables required for operatio
 ```batch
 az ml env set -n <your environment name> -g <resource group>
 ```
+![Env Set](media/tutorial-market-campaign/env_set.png)
+
 To verify that you have properly configured your operationalization environment for local web service deployment, enter the following command:
 ```batch
 az ml env local
@@ -252,7 +258,7 @@ az ml account modelmanagement set -n <account name> -g <resource group>
 To create the real-time web service, run the following command:
 
 ```
-az ml service create realtime -f BankMarketCampaignScore.py --model-file dt.pkl -s service_schema.json -n marketservice -r python
+az ml service create realtime -f BankMarketCampaignScore.py --model-file dt.pkl -s market_service_schema.json -n marketservice -r python
 ```
 To test the service, execute the returned service run command as follows. For example, the command that is executed below is:
 
