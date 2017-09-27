@@ -265,7 +265,7 @@ az ml service create realtime -f market_score.py --model-file dt.pkl -s market_s
 
 Run docker ps to see the churn image as shown below:
 
-![docker ps](media/tutorial-market-campaign/docker_ps.png)
+![docker ps](media/tutorial-market-campaign/docker_ps.PNG)
 
 To test the service, execute the returned service run command as follows. For example, the command that is executed below is:
 
