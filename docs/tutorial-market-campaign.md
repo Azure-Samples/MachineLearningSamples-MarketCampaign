@@ -264,10 +264,10 @@ az ml service create realtime -f market_score.py --model-file dt.pkl -s market_s
 ![service create](media/tutorial-market-campaign/marketservice_create.png)
 
 The different az ml service create realtime command parameters are as follows:
--n: service name, must be lower case.
--f: scoring script file name
---model-file: model file, in this case it is the pickled sklearn model dt.pkl
--r: type of model, in this case it is the scikit-learn model.
+* -n: service name, must be lower case.
+* -f: scoring script file name
+* --model-file: model file, in this case it is the pickled sklearn model dt.pkl
+* -r: type of model, in this case it is the scikit-learn model.
 
 By executing the above command, the model and the scoring file are uploaded into an Azure service that we manage. As part of deployment process, the operationalization component uses the pickled model dt.pkl and market_score.py to build a Docker image named <ACR_name>.azureacr.io/marketservice. It registers the image with your Azure Container Registry (ACR) service, pulls down that image locally to your computer, and starts a Docker container based on that image. As part of the deployment, an HTTP REST endpoint for the web service is created on your local machine.
 
