@@ -291,6 +291,16 @@ az ml image usage -i 9bebf880-dc0d-4b2c-9e00-f19f8e09102a
 ```
 In some cases, you may have more than one image and to list them, you can run ```az ml image list```
 
+Ensure local is used as the deployment environment:
+```
+az ml env local
+```
+In local mode, the CLI creates locally running web services for development and testing.
+Change to root:
+```
+sudo -i
+```
+
 ### Real-time Web Service
 
 Create a realtime service by running the below command using the image-id. In the following command, we create a realtime service called sentiservice.

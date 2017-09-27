@@ -131,8 +131,9 @@ If you have a Docker engine running locally, in the command line window, repeat 
 REM execute against a local Docker container with Python context
 az ml experiment submit -c docker .\BankMarketCampaignModeling.py
 ```
-This command pulls down a base Docker image, lays a conda environment on that base image based on the _conda_dependencies.yml_ file in your_aml_config_ directory, and then starts a Docker container. It then executes your script. You should see some Docker image construction messages in the CLI window. And in the end, you should see the exact same output as step 5. You can find the _docker.runconfig_ file and _docker.compute_ file under _aml_config_ folder and examine the content to understand how they control the execution behavior. 
+This command pulls down a base Docker image, lays a conda environment on that base image based on the _conda_dependencies.yml_ file in your_aml_config_ directory, and then starts a Docker container. It then executes your script. You should see some Docker image construction messages in the CLI window. And in the end, you should see the exact same output as step 5.
 
+Below
 ### b) Run in a Docker container on a remote Linux machine
 
 To execute your script in a Docker container on a remote Linux machine, you need to have SSH access (using username and password) to that remote machine, and that remote machine must have the Docker engine installed. The easiest way to obtain such a Linux machine is to create a [Ubuntu-based Data Science Virtual Machine (DSVM)](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/microsoft-ads.linux-data-science-vm-ubuntu) on Azure. 
@@ -213,7 +214,11 @@ az ml env setup -n <your environment name> -g <resource group> -l <resources loc
 ```
 >If you need to scale out your deployment (or if you don't have Docker engine installed locally, you can choose to deploy the web service on a cluster. In cluster mode, your service is run in the Azure Container Service (ACS). The operationalization environment provisions Docker and Kubernetes in the cluster to manage the web service deployment. Deploying to ACS allows you to scale your service as needed to meet your business needs. To deploy web service into a cluster, add the _--cluster_ flag to the set up command. For more information, enter the _--help_ flag.
 
-Follow the instructions to provision an Azure Container Registry (ACR) instance and a storage account in which to store the Docker image we are about to create. After the setup is complete, set the environment variables required for operationalization using the following command:
+Follow the instructions to provision an Azure Container Registry (ACR) instance and a storage account in which to store the Docker image we are about to create. 
+
+![Env Setup](media/tutorial-market-campaign/env_setup.png)
+
+After the setup is complete, set the environment variables required for operationalization using the following command:
 ```batch
 az ml env set -n <your environment name> -g <resource group>
 ```
@@ -225,7 +230,7 @@ az ml env local
 
 ### Schema and Score
 
-To deploy the web service, you must have a model, a scoring script, and optionally a schema for the web service input data. The scoring script loads the dt.pkl file from the current folder and uses it to produce a new predicted class. The input to the model is encoded features.
+To deploy the web service, you must have a model, a scoring script, and optionally a schema for the web service input data. The scoring script loads the dt.pkl file from the current folder and uses it to produce a new predicted class. The input to the model is features.
 
 To generate the scoring and schema files, execute the BankMarketCampaignSchemaGen.py file that comes with the sample project in the AMLWorkbench CLI command prompt using Python interpreter directly.
 
@@ -233,7 +238,7 @@ To generate the scoring and schema files, execute the BankMarketCampaignSchemaGe
 python BankMarketCampaignSchemaGen.py
 ```
 
-This will create service_schema.json (this file contains the schema of the web service input)
+This will create market_service_schema.json (this file contains the schema of the web service input)
 
 ### Model Management
 
@@ -248,6 +253,11 @@ To create the real-time web service, run the following command:
 
 ```
 az ml service create realtime -f BankMarketCampaignScore.py --model-file dt.pkl -s service_schema.json -n marketservice -r python
+```
+To test the service, execute the returned service run command as follows. For example, the command that is executed below is:
+
+```
+az ml service run realtime -i marketservice -d "{\"input_df\": [{\"day\": 19, \"education\": \"unknown\", \"poutcome\": \"unknown\", \"age\": 30, \"default\": \"yes\", \"marital\": \"divorced\", \"loan\": \"no\", \"housing\": \"no\", \"contact\": \"telephone\", \"month\": \"oct\", \"balance\": 1787, \"campaign\": 1, \"job\": \"admin.\", \"duration\": 79, \"pdays\": -1, \"previous\": 0}]}"
 ```
 ## Congratulations!
 Great job! You have successfully run a training script in various compute environments, created a model, serialized the model, and operationalized the model through a Docker-based web service. 
