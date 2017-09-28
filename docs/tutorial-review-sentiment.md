@@ -150,11 +150,13 @@ After you run the BankReviewSentimentModeling.py script a few times in the CLI w
 
 Now click on the Run History icon. You should see BankReviewSentimentModeling.py listed as an item in the run history list. Click on it to see the run history dashboard for this particular script, which includes some graphs depicting metrics recorded in each run, along with the list of runs showing basic information including as created date, status, and duration. 
 
-You can click on an individual run, and explore the details recorded for that run. If the run is still underway, you will see execution messages streaming into the log file window that are opened in the run details page. 
+You can click on an individual run, and explore the details recorded for that run. In this example, you can see the models generated in the outputs folder and the ROC Curve plot rendered in the images section.
+
+![Run History](media/tutorial-review-sentiment/run_history.png)
+
+If the run is still underway, you will see execution messages streaming into the log file window that are opened in the run details page. 
 
 ![Run History](media/tutorial-review-sentiment/streaming_log.png)
-
-And if there are images (.png and .jpg are the format we support right now) produced by your script run, they are rendered in the images section.
 
 ## Step 8. Obtain the Pickled Model
 
