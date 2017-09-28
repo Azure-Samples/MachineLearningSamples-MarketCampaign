@@ -69,7 +69,7 @@ _Docs_: Contains end-to-end tutorial in the forms of jupyter notebook and markdo
 |--------|------------|---------------|
 | data   | NA       | 'BankMarketCampaignTrainingSample.csv' |
 | code   | marketcampaign | 'BankMarketCampaignModeling.py', 'BankMarketCampaignModelingDocker.py' |
-|        | marketcampaign | 'BankMarketCampaignSchemaGen.py', 'BankMarketCampaignScore.py', 'service_schema.json', 'dt.pkl' |
+|        | marketcampaign | 'market_schema_gen.py', 'market_score.py', 'market_service_schema.json', 'dt.pkl' |
 | docs   | notebook | 'BankMarketCampaignNoteBook.ipynb', 'BankMarketCampaignOperationalization.ipynb' |
 |        | media    | images  |
 |        | NA       | [tutorial-market-campaign.md](docs/tutorial-market-campaign.md) |
