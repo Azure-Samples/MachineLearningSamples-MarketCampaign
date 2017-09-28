@@ -3,6 +3,7 @@
 ## Link to the Microsoft DOCS site
 
 The detailed documentation for this market campaign prediction example includes the step-by-step walk-through:
+
 [https://docs.microsoft.com/azure/machine-learning/preview/scenario-market-campaign-sentiment-analysis](https://docs.microsoft.com/azure/machine-learning/preview/scenario-market-campaign-sentiment-analysis)
 
 ## Link of the Gallery GitHub Repository
@@ -23,7 +24,7 @@ The aim of this solution is to demonstrate predictive market analytics using AML
 
 3. Perform Unigrams TF-IDF feature extraction to convert unstructured text review data.
 
-4. Integrate third-party libraries (such as scikit-learn and azureml) to develop Logistic Regression, Support Vector Machine and Tree-based classifiers for predicting the success of market campaign, as well as predicting the sentiment score of customer review.
+4. Train and validate various machine learning models for predicting the success of market campaign, as well as predicting the sentiment score of customer review.
 
 5. Model operationalization.
 
