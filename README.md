@@ -24,7 +24,7 @@ The aim of this solution is to demonstrate predictive market analytics using AML
 
 3. Perform Unigrams TF-IDF feature extraction to convert unstructured text review data.
 
-4. Train and validate various machine learning models (such as Logistic Regression, Support Vector Machine, Decision Tree) for predicting the success of market campaign, as well as predicting the sentiment score of customer review.
+4. Train and validate various machine learning models (such as Logistic Regression, Support Vector Machine, Decision Tree) with hyper-parameter sweeping for predicting the success of market campaign, as well as predicting the sentiment score of customer review.
 
 5. Model operationalization.
 
