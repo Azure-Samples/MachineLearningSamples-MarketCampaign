@@ -214,7 +214,7 @@ Local mode deployments run in Docker containers on your local computer, whether 
 Let's prepare the operationalization environment. In the command line window type the following to set up the environment for local operationalization:
 
 ```batch
-az ml env setup -n <your environment name> -g <resource group> -l <resources location>
+az ml env setup -n <your environment name> -g <resource group> -l <resources location> 
 ```
 >If you need to scale out your deployment (or if you don't have Docker engine installed locally, you can choose to deploy the web service on a cluster. In cluster mode, your service is run in the Azure Container Service (ACS). The operationalization environment provisions Docker and Kubernetes in the cluster to manage the web service deployment. Deploying to ACS allows you to scale your service as needed to meet your business needs. To deploy web service into a cluster, add the _--cluster_ flag to the set up command. For more information, enter the _--help_ flag.
 
@@ -228,6 +228,15 @@ az ml env set -n <your environment name> -g <resource group>
 ```
 ![Env Set](media/tutorial-market-campaign/env_set.png)
 
+You can check the credentials of the environment using the following command:
+```batch
+az ml env get-credentials -g <resource group> -n <your environment name>
+```
+Or, execute the .amlenvrc.cmd file from the command line if you are using docker on local PC.
+
+```batch
+c:\Users\<username>\.amlenvrc.cmd
+```
 To verify that you have properly configured your operationalization environment for local web service deployment, enter the following command:
 ```batch
 az ml env local
@@ -257,7 +266,6 @@ az ml account modelmanagement set -n <account name> -g <resource group>
 ```
 
 To create the real-time web service, run the following command:
-
 ```
 az ml service create realtime -f market_score.py --model-file dt.pkl -s market_service_schema.json -n marketservice -r python
 ```
