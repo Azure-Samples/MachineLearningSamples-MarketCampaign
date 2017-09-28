@@ -53,8 +53,6 @@ text_df = text_df.dropna()
 
 text_df.head()
 
-text_df["label_column"].hist()
-
 # Step 2 - Text Preprocessing
 
 stop_words_df = pd.read_csv('StopWords.csv')
@@ -102,7 +100,6 @@ def tokenize(text):
 tfidf = TfidfVectorizer(tokenizer=tokenize, stop_words='english', max_df=160000,
                         min_df=9, norm="l2", use_idf=True)
 tfs = tfidf.fit_transform(text_list)
-print(tfs)
 tfs
 
 # Perform Feature Selection using Chi-squared Test
@@ -183,12 +180,15 @@ def calc_auc(test_label, predict_probability_list):
 # Put it all together
 # We select different top k words list based on Chi-squared test, and then a 3-fold cross validation is used to find the optimal parameters for the logistic regression algorithm based on the top k words. We trained the logistic regression algorithm with the optimal parameters, test its performance on test set and plot the ROC curve for each top k words list
 
+fig = pl.figure(figsize=(6, 4), dpi=75)
 top_k_list = [5, 10, 20, 30]  #Select top words to see performance
 pl.clf()
 for top_k in top_k_list:
     selected_features = select_top_features(chi2, top_k, tfs, labels)
     train_x, test_x, train_y, test_y = split_data(selected_features, labels)
     clf = sweep_logistic_regression_cross_val(train_x, train_y)
+    print ("model_"+str(top_k)+":")
+    print (clf)
     print ("Export the model to model_"+str(top_k)+".pkl")
     f = open('./outputs/model_'+str(top_k)+'.pkl', 'wb')
     pickle.dump(clf, f)
@@ -206,4 +206,7 @@ pl.xlabel('False Positive Rate')
 pl.ylabel('True Positive Rate')
 pl.title('Sentiment Analysis')
 pl.legend(loc="lower right", prop={'size':8})
-pl.show()  
+fig.savefig("./outputs/roc.png", bbox_inches='tight')
+
+print("ROC Curve Plotted")
+
