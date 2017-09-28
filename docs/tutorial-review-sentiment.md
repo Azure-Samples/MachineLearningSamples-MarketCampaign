@@ -1,6 +1,6 @@
 # Tutorial: Review Sentiment Analysis
 
-In this tutorial, we show you the basics of Azure ML preview features by creating a data prepartion package, building a model and operationalizing it as a real-time web service. To make things simple, we use the timeless [customer feedback dataset](https://www.creditkarma.com/reviews/banking/single/id/Simple#single-review-listingPaper). 
+In this tutorial, we show you the basics of Azure ML preview features by creating a data preparation package, building a model and operationalizing it as a real-time web service. To make things simple, we use the timeless [customer feedback dataset](https://www.creditkarma.com/reviews/banking/single/id/Simple#single-review-listingPaper). 
 
 ## Step 1. Launch Azure ML Workbench
 Follow the [installation guide](https://github.com/Azure/ViennaDocs/blob/master/Documentation/Installation.md) to install Azure ML Workbench desktop application, which also includes command-line interface (CLI). Launch the Azure ML Workbench desktop app and log in if needed.
@@ -10,7 +10,7 @@ Click on _File_ --> _New Project_ (or click on the "+" sign in the project list 
 
 ![new ws](media/tutorial-review-sentiment/new_ws.png)
 
-Fill in the project name (this tutorial assumes you use `ReviewSentiment`). Choose the directory the project is going to be created in (this tutorial assumes you choose `C:\Users\zhouf\Documents\Work\Project\Vienna`). Enter an optional description. Choose a Workspace (this tutorial uses `zfviennaws01`). 
+Fill in the project name (this tutorial assumes you use `ReviewSentiment`). Choose the directory the project is going to be created in (this tutorial assumes you choose `C:\Users\dsvmadmin\Documents\AzureML\ReviewSentiment`). Enter an optional description. Choose a Workspace (this tutorial uses `zfviennaws01`). 
 
 ![New Project](media/tutorial-review-sentiment/new_project.png)
 >Optionally, you can fill in the Git repo field with an existing empty (with no master branch) Git repo on VSTS. 
@@ -46,22 +46,28 @@ Now close the DataPrep editor. Don't worry, it is auto-saved. Right click on the
 This creates an `BankReviewTrainingSample.py` file with following two lines of code prepopulated (along with some comments):
 
 ```python
-# This code snippet will load the referenced package and return a DataFrame.
-# If the code is run in a PySpark environment, the code will return a
-# Spark DataFrame. If not, the code will return a Pandas DataFrame.
+# Use the Azure Machine Learning data preparation package
+from azureml.dataprep import package
 
-from azureml.dataprep.package import run
-df = run('BankReviewTrainingSample.dprep', dataflow_idx=0)
+# Use the Azure Machine Learning data collector to log various metrics
+from azureml.logging import get_azureml_logger
+logger = get_azureml_logger()
+
+# This call will load the referenced package and return a DataFrame.
+# If run in a PySpark environment, this call returns a
+# Spark DataFrame. If not, it will return a Pandas DataFrame.
+df = package.run('BankReviewTrainingSample.dprep', dataflow_idx=0)
+
+# Remove this line and add code that uses the DataFrame
+df.head(10)
 ```
 This code snippet shows how you can invoke the data wrangling logic you have created as a Data Prep package. Depending on the context in which this code runs, `df` can be a Python Pandas DataFrame if executed in Python runtime, or a Spark DataFrame if executed in a Spark context. 
 
-## Step 4. View Python Code in `BankReviewSentimentNoteBook.ipynb` File
+## Step 4. View Python Code in `BankReviewSentimentModeling.py` File
 
-Now, open the `BankReviewSentimentNoteBook.ipynb` file.
+Now, open the `BankReviewSentimentModeling.py` file.
 
-![open file](media/tutorial-review-sentiment/review_notebook.png)
-
->Note the code you see might not be the same as shown in the above screenshots as we update the sample project frequently.
+![open file](media/tutorial-review-sentiment/open_review_sentiment_modeling.png)
 
 Observe that this script does the following tasks:
 1. Load data from local to generate a [Pandas](http://pandas.pydata.org/) data frame.
@@ -74,7 +80,8 @@ Observe that this script does the following tasks:
 
 Launch the command-line window by clicking on _File_ --> _Open Command-Line Interface_, noice that you are automatically placed in the project folder. In this example, the project is located in `C:\Users\dsvmadmin\Documents\AzureML\ReviewSentiment`.
 
->Important: You **must** use the command-line window opened from Workbench, and you also **must** log in to Azure from the command-line window, in order to issue the following commands. You might already have a cached/valid az-cli token if you've logged in before. Otherwise please use the following command to log in:
+>Important: You must use the command-line window opened from Workbench to accomplish the following steps.
+
 ```batch
 REM login using aka.ms/devicelogin site.
 az login
@@ -89,14 +96,12 @@ REM verify your current subscription is set correctly
 az account show
 ```
 
-For more information on authentication in the command line window, please reference [CLI Execution Authentication](Execution.md#cli-execution-authentication). 
-
 Once you are authenticated, type the following commands in the terminal window. 
 ```batch
 REM Kick off an execution of the BankMarketCampaignModeling.py file against local compute context
 az ml experiment submit -c local .\BankReviewSentimentModeling.py
 ```
-This command executes the *BankReviewSentimentModeling.py* file locally. After the execution finishes, you should see the output in the CLI window. The accuracy is printed out along with the prediction on the new record.
+This command executes the *BankReviewSentimentModeling.py* file locally. After the execution finishes, you should see the output in the CLI window. 
 
 ![execute local](media/tutorial-review-sentiment/execute_local.png)
 
@@ -104,13 +109,13 @@ This command executes the *BankReviewSentimentModeling.py* file locally. After t
 
 ### Run in a local Docker container
 
-If you have a Docker engine running locally, in the command line window, repeat the same command. Except this time, let's change the run configuration from _local_ to _docker-python_:
+If you have a Docker engine running locally, in the command line window, repeat the same command. Except this time, let's change the run configuration from _local_ to _docker_:
 
 ```batch
 REM execute against a local Docker container with Python context
-az ml experiment submit -c docker-python .\BankReviewSentimentModeling.py
+az ml experiment submit -c docker .\BankReviewSentimentModeling.py
 ```
-This command pulls down a base Docker image, lays a conda environment on that base image based on the _conda_dependencies.yml_ file in your_aml_config_ directory, and then starts a Docker container. It then executes your script. You should see some Docker image construction messages in the CLI window. And in the end, you should see the exact same output as step 5. You can find the _docker-python.runconfig_ file and _docker-python.compute_ file under _aml_config_ folder and examine the content to understand how they control the execution behavior. 
+This command pulls down a base Docker image, lays a conda environment on that base image based on the _conda_dependencies.yml_ file in your_aml_config_ directory, and then starts a Docker container. It then executes your script. You should see some Docker image construction messages in the CLI window. And in the end, you should see the exact same output as step 5. You can find the _docker.runconfig_ file and _docker.compute_ file under _aml_config_ folder and examine the content to understand how they control the execution behavior. 
 
 ### Run in a Docker container on a remote Linux machine
 
@@ -125,19 +130,23 @@ Edit the generated _myvm.runconfig_ file under _aml_config_ and change the Frame
 ```yaml
 "Framework": "Python"
 ```
+Prepare the myvm compute context
+```batch
+REM prepare myvm compute context
+az ml experiment prepare -c myvm
+```
+![execute remotedocker](media/tutorial-review-sentiment/execute_remotedocker.png)
+
 Now issue the same command as you did before in the CLI window, except this time we will target _myvm_:
 ```batch
 REM execute in remote Docker container
-az ml experiment prepare -c myvm
-az ml experiment submit -c myvm .\BankReviewSentimentModelingDocker.py
+az ml experiment submit -c myvm .\BankReviewSentimentModeling.py
 ```
 When the command is executed, the exact same thing happens as Step 6a except it happens on that remote machine. You should observe the exact same output information in the CLI window.
 
-![execute remotedocker](media/tutorial-review-sentiment/execute_remotedocker.png)
-
 ## Step 7. Explore Run History
 
-After you run the BankReviewSentimentModeling.py script a few times in the CLI window, go back to the Vienna desktop app.
+After you run the BankReviewSentimentModeling.py script a few times in the CLI window, go back to the Azure ML Workbench desktop app.
 
 Now click on the Run History icon. You should see BankReviewSentimentModeling.py listed as an item in the run history list. Click on it to see the run history dashboard for this particular script, which includes some graphs depicting metrics recorded in each run, along with the list of runs showing basic information including as created date, status, and duration. 
 
@@ -184,7 +193,7 @@ Only users with sudo access will be able to run docker commands. Optionally, add
 sudo usermod -a - G docker $(whoami)
 ```
 
-If you encounter “locale.Error: unsupported locale setting” error, perform the below export:
+If you encounter "locale.Error: unsupported locale setting" error, perform the below export:
 
 ```
 export LC_ALL=C
@@ -193,7 +202,7 @@ export LC_ALL=C
 Update pip to use the latest:
 
 ```
-pip install –-upgrade pip
+pip install --upgrade pip
 ```
 
 Update azure to the latest:
@@ -207,7 +216,7 @@ Install azure-cli and azure-cli-ml using pip:
 pip install azure-cli
 pip install azure-cli-ml
 ```
-In addition, change python default version and run the following commands. Local mode deployments run in docker containers on your local computer, whether that is your personal machine or a VM running on Azure. You can use local mode for development and testing. 
+In addition, change python default version and run the following commands. 
 
 Create a bash_aliases file
 
@@ -224,7 +233,7 @@ Source the ~/.bash_aliases file
 Setup azure ml environment
 
 ```
-az ml env setup -n <environment name> – g <resource group> -l <location>
+az ml env setup -n <environment name> -g <resource group> -l <location>
 az ml env set -g <resource group> -n <environment name>
 ```
 To verify that you have properly configured your operationalization environment for local web service deployment, enter the following command:
@@ -237,7 +246,7 @@ az ml env local
 
 ### Schema and Score
 
-To deploy the web service, you must have a model, a scoring script, and optionally a schema for the web service input data. The scoring script loads the dt.pkl file from the current folder and uses it to produce a new predicted class. The input to the model is encoded features.
+To deploy the web service, you must have a model, a scoring script, and optionally a schema for the web service input data. The scoring script loads the model_30.pkl file from the current folder and uses it to produce a new predicted class. The input to the model is review text.
 
 To generate the scoring and schema files, execute the senti_schema.py file that comes with the sample project in the AMLWorkbench CLI command prompt using Python interpreter directly.
 
@@ -306,7 +315,7 @@ sudo -i
 Create a realtime service by running the below command using the image-id. In the following command, we create a realtime service called sentiservice.
 
 ```
-az ml service create realtime -n sentiservice –-image-id 9bebf880-dc0d-4b2c-9e00-f19f8e09102a
+az ml service create realtime -n sentiservice --image-id 9bebf880-dc0d-4b2c-9e00-f19f8e09102a
 ```
 An example of a successful run of az ml service create looks as follows. In addition, you can also type docker ps to view the container.
 
@@ -315,7 +324,7 @@ An example of a successful run of az ml service create looks as follows. In addi
 Run the service (sentiservice) created using az ml service run. Note the review text created and passed to call the web service.
 
 ```
-az ml service run realtime -i sentiservice -d "{\"input_df\": [{\"review\": "I absolutely love my bank. There's a reason this bank's customer base is so strong--their customer service actually acts like people and not robots. I love that anytime my card is swiped, I'm instantly notified. And the built in budgeting app is something that really makes life easier. The biggest setback is not being able to deposit cash (you have to get a money order), and if you have another, non-simple bank account, transferring money between accounts can take a few days, which frankly isn't acceptable with most ACH taking a business day or less. Overall, it's a great bank, and I would recommend it to anyone."}]}"
+az ml service run realtime -i sentiservice -d "{\"input_df\": [{\"review\": \"I absolutely love my bank. There's a reason this bank's customer base is so strong--their customer service actually acts like people and not robots. I love that anytime my card is swiped, I'm instantly notified. And the built in budgeting app is something that really makes life easier. The biggest setback is not being able to deposit cash (you have to get a money order), and if you have another, non-simple bank account, transferring money between accounts can take a few days, which frankly isn't acceptable with most ACH taking a business day or less. Overall, it's a great bank, and I would recommend it to anyone.\"}]}"
 ```
 
 ![Sentiservice](media/tutorial-review-sentiment/service_run.png)
