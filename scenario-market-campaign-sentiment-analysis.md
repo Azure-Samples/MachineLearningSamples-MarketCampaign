@@ -65,7 +65,7 @@ _Docs_: Contains end-to-end tutorial in the forms of jupyter notebook and markdo
 
 ### Part 1 - Market Campaign Prediction
 
-| Folder | Sub-Folder | Realted Files |
+| Folder | Sub-Folder | Related Files |
 |--------|------------|---------------|
 | data   | NA       | 'BankMarketCampaignTrainingSample.csv' |
 | code   | marketcampaign | 'BankMarketCampaignModeling.py', 'BankMarketCampaignModelingDocker.py' |
@@ -76,7 +76,7 @@ _Docs_: Contains end-to-end tutorial in the forms of jupyter notebook and markdo
 
 ### Part 2 - Review Sentiment Analysis
 
-| Folder | Sub-Folder | Realted Files |
+| Folder | Sub-Folder | Related Files |
 |--------|------------|---------------|
 | data   | NA       | 'BankReviewTrainingSample.csv' |
 | code   | reviewsentiment | 'BankReviewSentimentModeling.py', 'BankReviewSentimentModelingDocker.py' |
