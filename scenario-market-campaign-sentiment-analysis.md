@@ -80,7 +80,7 @@ _Docs_: Contains end-to-end tutorial in the forms of jupyter notebook and markdo
 |--------|------------|---------------|
 | data   | NA       | 'BankReviewTrainingSample.csv' |
 | code   | reviewsentiment | 'BankReviewSentimentModeling.py', 'BankReviewSentimentModelingDocker.py' |
-|        | reviewsentiment | 'senti_schema.py', 'senti_service_schema.json', 'model_30.pkl' |
+|        | reviewsentiment | 'senti_schema_gen.py', 'senti_score.py', 'senti_service_schema.json', 'model_30.pkl', 'stopwords.pkl' |
 | docs   | notebook | 'BankReviewSentimentNoteBook.ipynb', 'BankReviewSentimentOperationalization.ipynb' |
 |        | media    | images|
 |        | NA       | [tutorial-review-sentiment.md](docs/tutorial-review-sentiment.md)|
