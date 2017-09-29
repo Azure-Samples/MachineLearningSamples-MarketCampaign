@@ -208,46 +208,84 @@ When you executed the *BankMarketCampaignModeling.py* script using the *az ml ex
 
 Now, download the model file _dt.pkl_ and save it to the root of your  project folder. You will need it in the later steps.
 
-## Step 9. Prepare for Operationalization Locally
+## Step 9. Prepare for Operationalization Locally using a DSVM on Azure
+
 Local mode deployments run in Docker containers on your local computer, whether that is your desktop or a Linux VM running on Azure. You can use local mode for development and testing. The Docker engine must be running locally to complete the operationalization steps as shown in the following steps.
 
-Let's prepare the operationalization environment. In the command line window type the following to set up the environment for local operationalization:
+Let's prepare the operationalization environment. 
 
-```batch
-az ml env setup -n <your environment name> -g <resource group> -l <resources location> 
+Launch a Data Science Virtual Machine (Ubuntu) from portal.azure.com as shown below. Follow the steps to create the virtual machine on selection and ssh into the machine.
+
+![DataScienceVirtualMachine](media/tutorial-market-campaign/data_science_virtual_machine.png)
+
+Pip is a better alternative to Easy Install for installing Python packages. To install pip on ubuntu run the bellow command:
+
 ```
->If you need to scale out your deployment (or if you don't have Docker engine installed locally, you can choose to deploy the web service on a cluster. In cluster mode, your service is run in the Azure Container Service (ACS). The operationalization environment provisions Docker and Kubernetes in the cluster to manage the web service deployment. Deploying to ACS allows you to scale your service as needed to meet your business needs. To deploy web service into a cluster, add the _--cluster_ flag to the set up command. For more information, enter the _--help_ flag.
-
-Follow the instructions to provision an Azure Container Registry (ACR) instance and a storage account in which to store the Docker image we are about to create. 
-
-![Env Setup](media/tutorial-market-campaign/env_setup.png)
-
-After the setup is complete, set the environment variables required for operationalization using the following command:
-```batch
-az ml env set -n <your environment name> -g <resource group>
+sudo apt-get install python-pip
 ```
-![Env Set](media/tutorial-market-campaign/env_set.png)
 
-You can check the credentials of the environment using the following command:
-```batch
-az ml env get-credentials -g <resource group> -n <your environment name>
+Only users with sudo access will be able to run docker commands. Optionally, add non-sudo access to the Docker socket by adding your user to the docker group.
+
 ```
-Or, execute the .amlenvrc.cmd file from the command line if you are using docker on local PC.
+sudo usermod -a - G docker $(whoami)
+```
 
-```batch
-c:\Users\<username>\.amlenvrc.cmd
+If you encounter "locale.Error: unsupported locale setting" error, perform the below export:
+
+```
+export LC_ALL=C
+```
+
+Update pip to use the latest:
+
+```
+pip install --upgrade pip
+```
+
+Update azure to the latest:
+
+```
+pip install --upgrade azure
+```
+Install azure-cli and azure-cli-ml using pip:
+
+```
+pip install azure-cli
+pip install azure-cli-ml
+```
+In addition, change python default version and run the following commands. 
+
+Create a bash_aliases file
+
+```gedit ~/.bash_aliases```
+
+Open your ~/.bash_aliases file and add the following and save it to home directory
+
+```alias python=python3```
+
+Source the ~/.bash_aliases file
+
+```source ~/.bash_aliases```
+
+Setup azure ml environment
+
+```
+az ml env setup -n <environment name> -g <resource group> -l <location>
+az ml env set -g <resource group> -n <environment name>
 ```
 To verify that you have properly configured your operationalization environment for local web service deployment, enter the following command:
+
 ```batch
 az ml env local
 ```
+
 ## Step 10. Create a Realtime Web Service
 
 ### Schema and Score
 
-To deploy the web service, you must have a model, a scoring script, and optionally a schema for the web service input data. The scoring script loads the dt.pkl file from the current folder and uses it to produce a new predicted class. The input to the model is features.
+To deploy the web service, you must have a model, a scoring script, and optionally a schema for the web service input data. The scoring script loads the dt.pkl file from the current folder and uses it to produce a new predicted class. 
 
-To generate the scoring and schema files, execute the market_schema_gen.py file that comes with the sample project in the AMLWorkbench CLI command prompt using Python interpreter directly.
+To generate the schema files, execute the market_schema_gen.py file that comes with the sample project in the AMLWorkbench CLI command prompt using Python interpreter directly.
 
 ```
 python market_schema_gen.py
@@ -255,41 +293,76 @@ python market_schema_gen.py
 
 This will create market_service_schema.json (this file contains the schema of the web service input)
 
+```
+Upload the below files to the vm (you could use scp to perform the upload):
+conda_dependencies.yml
+dt.pkl
+market_service_schema.json
+market_score.py
+```
+
+Edit the conda_dependencies.yml to contain only the following dependencies:
+
+```
+dependencies:
+  - pip:
+    # This is the operationalization API for Azure Machine Learning. Details:
+    # https://github.com/Azure/Machine-Learning-Operationalization
+    - azure-ml-api-sdk
+```
+
 ### Model Management
 
 The real-time web service requires a modelmanagement account. This can be created using the following commands:
 
 ```
-az group create -l <location> -n <name>
+az group create -l <location> -n <group name>
 az ml account modelmanagement create -l <location> -g <resource group> -n <account name>
 az ml account modelmanagement set -n <account name> -g <resource group>
 ```
+The following command creates an image which can be used in any environment.
 
-To create the real-time web service, run the following command:
 ```
-az ml service create realtime -f market_score.py --model-file dt.pkl -s market_service_schema.json -n marketservice -r python
+az ml image create -n zfviennagrp -v -c conda_dependencies.yml -m dt.pkl -s market_service_schema.json -f market_score.py -r python
 ```
-![service create](media/tutorial-market-campaign/marketservice_create.png)
+![image create](media/tutorial-market-campaign/marketservice_image_ubuntu.png)
 
-The different az ml service create realtime command parameters are as follows:
-* -n: service name, must be lower case.
-* -f: scoring script file name
-* --model-file: model file, in this case it is the pickled sklearn model dt.pkl
-* -r: type of model, in this case it is the scikit-learn model.
+You will find the image id displayed when you create the image. Use the image id in the next command to specify the image to use. 
 
-By executing the above command, the model and the scoring file are uploaded into an Azure service that we manage. As part of deployment process, the operationalization component uses the pickled model dt.pkl and market_score.py to build a Docker image named <ACR_name>.azureacr.io/marketservice. It registers the image with your Azure Container Registry (ACR) service, pulls down that image locally to your computer, and starts a Docker container based on that image. As part of the deployment, an HTTP REST endpoint for the web service is created on your local machine.
+```
+az ml image usage -i 194c0697-d1a9-42ba-8f2f-d33243146edd
+```
+In some cases, you may have more than one image and to list them, you can run ```az ml image list```
 
-Run docker ps to see the churn image as shown below:
+Ensure local is used as the deployment environment:
+```
+az ml env local
+```
+In local mode, the CLI creates locally running web services for development and testing.
+Change to root:
+```
+sudo -i
+```
 
-![docker ps](media/tutorial-market-campaign/docker_ps.PNG)
+### Real-time Web Service
+
+Create a realtime service by running the below command using the image-id. In the following command, we create a realtime service called marketservice.
+
+```
+az ml service create realtime -n marketservice --image-id 194c0697-d1a9-42ba-8f2f-d33243146edd 
+```
+An example of a successful run of az ml service create looks as follows. In addition, you can also type docker ps to view the container.
+
+![service create](media/tutorial-market-campaign/marketservice_create_ubuntu.png)
+![service create](media/tutorial-market-campaign/docker_ps_ubuntu.png)
+
 
 To test the service, execute the returned service run command as follows. For example, the command that is executed below is:
-
 ```
 az ml service run realtime -i marketservice -d "{\"input_df\": [{\"day\": 19, \"education\": \"unknown\", \"poutcome\": \"unknown\", \"age\": 30, \"default\": \"yes\", \"marital\": \"divorced\", \"loan\": \"no\", \"housing\": \"no\", \"contact\": \"telephone\", \"month\": \"oct\", \"balance\": 1787, \"campaign\": 1, \"job\": \"admin.\", \"duration\": 79, \"pdays\": -1, \"previous\": 0}]}"
 ```
-
-![service run](media/tutorial-market-campaign/marketservice_run.png)
+![service run](media/tutorial-market-campaign/marketservice_run_ubuntu.png)
 
 ## Congratulations!
 Great job! You have successfully run a training script in various compute environments, created a model, serialized the model, and operationalized the model through a Docker-based web service. 
+

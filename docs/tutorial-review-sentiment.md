@@ -264,6 +264,7 @@ conda_dependencies.yml
 model_30.pkl
 senti_service_schema.json
 senti_schema.py
+StopWords.csv
 ```
 
 Edit the conda_dependencies.yml to contain only the following dependencies:
@@ -302,6 +303,11 @@ az ml image usage -i 9bebf880-dc0d-4b2c-9e00-f19f8e09102a
 ```
 In some cases, you may have more than one image and to list them, you can run ```az ml image list```
 
+Don't forget to copy the 'StopWords.csv' file from the VM to Docker container:
+```
+docker cp StopWords.csv mycontainer:/StopWords.csv
+```
+
 Ensure local is used as the deployment environment:
 ```
 az ml env local
@@ -317,7 +323,7 @@ sudo -i
 Create a realtime service by running the below command using the image-id. In the following command, we create a realtime service called sentiservice.
 
 ```
-az ml service create realtime -n sentiservice --image-id 9bebf880-dc0d-4b2c-9e00-f19f8e09102a
+az ml service create realtime -n sentiservice --image-id 9bebf880-dc0d-4b2c-9e00-f19f8e09102a 
 ```
 An example of a successful run of az ml service create looks as follows. In addition, you can also type docker ps to view the container.
 
