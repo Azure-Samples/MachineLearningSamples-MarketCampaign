@@ -250,10 +250,10 @@ az ml env local
 
 To deploy the web service, you must have a model, a scoring script, and optionally a schema for the web service input data. The scoring script loads the model_30.pkl file from the current folder and uses it to produce a new predicted class. The input to the model is review text.
 
-To generate the scoring and schema files, execute the senti_schema.py file that comes with the sample project in the AMLWorkbench CLI command prompt using Python interpreter directly.
+To generate the schema file, execute the senti_schema_gen.py file that comes with the sample project in the AMLWorkbench CLI command prompt using Python interpreter directly.
 
 ```
-python senti_schema.py
+python senti_schema_gen.py
 ```
 
 This will create senti_service_schema.json (this file contains the schema of the web service input)
@@ -263,10 +263,9 @@ Upload the below files to the vm (you could use scp to perform the upload):
 conda_dependencies.yml
 model_30.pkl
 senti_service_schema.json
-senti_schema.py
-StopWords.csv
+senti_score.py
+stopwords.pkl
 ```
-
 Edit the conda_dependencies.yml to contain only the following dependencies:
 
 ```
@@ -292,21 +291,23 @@ az ml account modelmanagement set -n <account name> -g <resource group>
 The following command creates an image which can be used in any environment.
 
 ```
-az ml image create -n zfviennagrp -v -c conda_dependencies.yml -m model_30.pkl -s senti_service_schema.json -f senti_schema.py -r python
+az ml image create -n zfviennagrp -v -c conda_dependencies.yml -m model_30.pkl -s senti_service_schema.json -f senti_schema.py -r python -d stopwords.pkl
 ```
-![Image Create](media/tutorial-review-sentiment/image_create.png)
+The different az ml image create realtime command parameters are as follows:
+* -n: service name, must be lower case.
+* -f: scoring script file name
+* --model-file: model file, in this case it is the pickled sklearn model dt.pkl
+* -r: type of model, in this case it is the scikit-learn model
+* -d: dependency, in this case it is the stopwords data frame.
+
+![image create](media/tutorial-review-sentiment/sentiservice_image_ubuntu.png)
 
 You will find the image id displayed when you create the image. Use the image id in the next command to specify the image to use. 
 
 ```
-az ml image usage -i 9bebf880-dc0d-4b2c-9e00-f19f8e09102a
+az ml image usage -i cada8d51-b7bf-4113-9527-c01049d72fe5
 ```
 In some cases, you may have more than one image and to list them, you can run ```az ml image list```
-
-Don't forget to copy the 'StopWords.csv' file from the VM to Docker container:
-```
-docker cp StopWords.csv mycontainer:/StopWords.csv
-```
 
 Ensure local is used as the deployment environment:
 ```
@@ -323,11 +324,11 @@ sudo -i
 Create a realtime service by running the below command using the image-id. In the following command, we create a realtime service called sentiservice.
 
 ```
-az ml service create realtime -n sentiservice --image-id 9bebf880-dc0d-4b2c-9e00-f19f8e09102a 
+az ml service create realtime -n sentiservice --image-id cada8d51-b7bf-4113-9527-c01049d72fe5 
 ```
 An example of a successful run of az ml service create looks as follows. In addition, you can also type docker ps to view the container.
 
-![Docker Ps](media/tutorial-review-sentiment/service_create.png)
+![service create](media/tutorial-review-sentiment/sentiservice_create_ubuntu.png)
 
 Run the service (sentiservice) created using az ml service run. Note the review text created and passed to call the web service.
 
@@ -335,7 +336,7 @@ Run the service (sentiservice) created using az ml service run. Note the review 
 az ml service run realtime -i sentiservice -d "{\"input_df\": [{\"review\": \"I absolutely love my bank. There's a reason this bank's customer base is so strong--their customer service actually acts like people and not robots. I love that anytime my card is swiped, I'm instantly notified. And the built in budgeting app is something that really makes life easier. The biggest setback is not being able to deposit cash (you have to get a money order), and if you have another, non-simple bank account, transferring money between accounts can take a few days, which frankly isn't acceptable with most ACH taking a business day or less. Overall, it's a great bank, and I would recommend it to anyone.\"}]}"
 ```
 
-![Sentiservice](media/tutorial-review-sentiment/service_run.png)
+![service run](media/tutorial-review-sentiment/sentiservice_run_ubuntu.png)
 
 ## Congratulations!
 Great job! You have successfully run a training script in various compute environments, created a model, serialized the model, and operationalized the model through a Docker-based web service. 

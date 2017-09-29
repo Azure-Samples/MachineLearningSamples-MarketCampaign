@@ -210,3 +210,14 @@ fig.savefig("./outputs/roc.png", bbox_inches='tight')
 
 print("ROC Curve Plotted")
 
+Step 5 - Prepare for deployment
+
+# Export the deployment dependencies
+
+print("Export the StopWords to stopwords.pkl")
+f = open('./outputs/stopwords.pkl', 'wb')
+pickle.dump(stop_words_df, f)
+f.close()
+print("Import the StopWords to stopwords.pkl")
+f2 = open('./outputs/stopwords.pkl', 'rb')
+stop_words_df2 = pickle.load(f2)
