@@ -158,7 +158,7 @@ If the run is still underway, you will see execution messages streaming into the
 
 ![Run History](media/tutorial-review-sentiment/streaming_log.png)
 
-## Step 8. Obtain the Pickled Model
+## Step 8. Obtain the Pickled Model and Dependencies
 
 In the BankReviewSentimentModeling.py script, we serialize the logistic regression model using the popular object serialization package -- pickle, into files named _model_top_k.pkl_ on disk. Here is the code snippet.
 
@@ -168,10 +168,11 @@ f = open('./outputs/model_'+str(top_k)+'.pkl', 'wb')
 pickle.dump(clf, f)
 f.close()
 ```
+At the same time, we also serialize the stop_words_df into file named _stopwords.pkl_ on disk.
 
-When you executed the *BankReviewSentimentModeling.py* script using the *az ml experiment submit* command, the model was written to the *outputs* folder with the name *model_top_k.pkl*. This folder lives in the compute target, not your local project folder. You can find it in the run history detail page and download this binary file by clicking on the download button next to the file name. 
+When you executed the *BankReviewSentimentModeling.py* script using the *az ml experiment submit* command, the model and the stopwords was written to the *outputs* folder with the name *model_top_k.pkl* and *stopwords.pkl*. This folder lives in the compute target, not your local project folder. You can find it in the run history detail page and download this binary file by clicking on the download button next to the file name. 
 
-Now, download the optimal model file _model_30.pkl_ and save it to the root of your  project folder. You will need it in the later steps.
+Now, download the optimal model file _model_30.pkl_ and _stopwords.pkl_ and save it to the root of your project folder. You will need it in the later steps.
 
 ## Step 9. Prepare for Operationalization Locally using a DSVM on Azure
 
