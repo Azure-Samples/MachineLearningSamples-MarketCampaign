@@ -106,7 +106,7 @@ REM list all Azure subscriptions you have access to.
 az account list -o table
 
 REM set the current Azure subscription to the one you want o use.
-az set account -s <subscriptionId>
+az account set -s <subscriptionId>
 
 REM verify your current subscription is set correctly
 az account show
@@ -129,7 +129,7 @@ If you have a Docker engine running locally, in the command line window, repeat 
 
 ```batch
 REM execute against a local Docker container with Python context
-az ml experiment submit -c docker .\BankMarketCampaignModeling.py
+az ml experiment submit -c docker .\BankMarketCampaignModelingDocker.py
 ```
 This command pulls down a base Docker image, lays a conda environment on that base image based on the _conda_dependencies.yml_ file in your_aml_config_ directory, and then starts a Docker container. It then executes your script. You should see some Docker image construction messages in the CLI window. And in the end, you should see the exact same output as step 5.
 
@@ -140,7 +140,7 @@ To execute your script in a Docker container on a remote Linux machine, you need
 Once the VM is created, you can attach the VM as an execution environment by generating a pair of .runconfig and .compute file using the below command. To do so the user can copy the content from any of the existing .runconfig and .compute files and then name the new environment myvm.
 ```batch
 REM create myvm compute target
-az ml computetarget attach --name myvm --address 52.187.129.184 --username ldsvmadmin --password <password> --type remotedocker
+az ml computetarget attach remotedocker --name "myvm" --address "<id address>" --username "<username>" --password "<password>"
 ```
 Edit the generated _myvm.runconfig_ file under _aml_config_ and change the PrepareEnvironment from default false to true:
 ```yaml
@@ -227,7 +227,7 @@ sudo apt-get install python-pip
 Only users with sudo access will be able to run docker commands. Optionally, add non-sudo access to the Docker socket by adding your user to the docker group.
 
 ```
-sudo usermod -a - G docker $(whoami)
+sudo usermod -a -G docker $(whoami)
 ```
 
 If you encounter "locale.Error: unsupported locale setting" error, perform the below export:
