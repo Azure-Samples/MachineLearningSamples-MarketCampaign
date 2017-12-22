@@ -47,7 +47,7 @@ print()
 
 # Load the bank dataset
 
-df = pd.read_csv('BankMarketCampaignTrainingSample.csv')
+df = pd.read_csv('./data/BankMarketCampaignTrainingSample.csv')
 
 # Step 2 - Feature Engineering
 
