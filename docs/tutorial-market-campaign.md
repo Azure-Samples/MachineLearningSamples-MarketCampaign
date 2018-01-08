@@ -115,7 +115,7 @@ Once authenticated and current Azure subscription context is set, type the follo
 
 ```batch
 REM Kick off an execution of the BankMarketCampaignModeling.py file against local compute context
-az ml experiment submit -c local .\BankMarketCampaignModeling.py
+az ml experiment submit -c local .\code\marketcampaign\BankMarketCampaignModeling.py
 ```
 This command executes the *BankMarketCampaignModeling.py* file locally. After the execution finishes, you should see the output in the CLI window. 
 
@@ -129,7 +129,7 @@ If you have a Docker engine running locally, in the command line window, repeat 
 
 ```batch
 REM execute against a local Docker container with Python context
-az ml experiment submit -c docker .\BankMarketCampaignModelingDocker.py
+az ml experiment submit -c docker .\code\marketcampaign\BankMarketCampaignModelingDocker.py
 ```
 This command pulls down a base Docker image, lays a conda environment on that base image based on the _conda_dependencies.yml_ file in your_aml_config_ directory, and then starts a Docker container. It then executes your script. You should see some Docker image construction messages in the CLI window. And in the end, you should see the exact same output as step 5.
 
@@ -154,7 +154,7 @@ Now issue the same command as you did before in the CLI window, except this time
 ```batch
 REM execute in remote Docker container
 az ml experiment prepare -c myvm
-az ml experiment submit -c myvm .\BankMarketCampaignModelingDocker.py
+az ml experiment submit -c myvm .\code\marketcampaign\BankMarketCampaignModelingDocker.py
 ```
 When the command is executed, the exact same thing happens as Step 6a except it happens on that remote machine. You should observe the exact same output information in the CLI window.
 
