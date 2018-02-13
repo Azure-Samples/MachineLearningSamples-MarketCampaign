@@ -23,11 +23,9 @@ Under Data Explorer view, click on "+" to add a new data source. This launches t
 
 ![data add](media/tutorial-review-sentiment/data_add.png)
 
-Select the _Excel(s)/Directory_ option, and choose the `BankReviewTrainingSample.csv` local file. Accept all the default settings for each screen and finally click on _Finish_. 
+Select the _File(s)/Directory_ option, and choose the `BankReviewTrainingSample.csv` local file. Accept all the default settings for each screen and finally click on _Finish_. 
 
-![select bank](media/tutorial-review-sentiment/select_review_excel.png)
-
->Make sure you select the `BankReviewTrainingSample.xlsx` file from within the current project directory for this exercise, otherwise latter steps may fail. 
+![select bank](media/tutorial-review-sentiment/select_review_csv.png)
 
 This creates an `BankReviewTrainingSample-1.dsource` file (because the sample project already comes with an `BankReviewTrainingSample.dsource` file) and opens it in the _Data_ view. 
 

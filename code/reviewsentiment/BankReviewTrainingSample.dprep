@@ -1,19 +1,19 @@
 {
   "schemaVersion": 37,
-  "id": "eed97262-d895-4ead-b92c-d8bc5ccc9cd9",
+  "id": "751fc69b-ef85-4b34-a0f0-16de1faebd8d",
   "activities": [
     {
-      "id": "6c01c5d1-07c9-47f7-bb9e-3ab80f3949d8",
+      "id": "cc18854a-f94e-4ccb-9260-382b59eaceb3",
       "name": "BankReviewTrainingSample",
       "blocks": [
         {
-          "id": "aab80155-b938-402e-87bf-655e5f2be06d",
+          "id": "07391998-1ca0-4156-87a7-c6dd2e9ab6b7",
           "type": "Microsoft.DPrep.ReferenceActivityBlock",
           "arguments": {
             "reference": {
               "referenceType": 1,
               "referenceContainerPath": "./BankReviewTrainingSample.dsource",
-              "referencedActivityId": "60d909ab-067f-4f42-b3a8-d441c24907e7",
+              "referencedActivityId": "18713490-3366-4919-bdd2-77c71df66bdc",
               "referencedBranchId": null,
               "referencedStep": null,
               "anonymousSteps": null
@@ -23,13 +23,13 @@
       ],
       "inspectors": [
         {
-          "id": "20ee5986-b580-496b-b89b-cb9963334d44",
+          "id": "81f465ba-01a2-4463-bf31-b622801ab2da",
           "type": "Microsoft.DPrep.DataQualityInspector",
           "arguments": {},
           "reference": {
             "referenceType": 0,
             "referenceContainerPath": null,
-            "referencedActivityId": "6c01c5d1-07c9-47f7-bb9e-3ab80f3949d8",
+            "referencedActivityId": "cc18854a-f94e-4ccb-9260-382b59eaceb3",
             "referencedBranchId": null,
             "referencedStep": {
               "stepReferenceType": 1,
