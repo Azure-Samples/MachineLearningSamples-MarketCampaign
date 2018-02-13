@@ -14,5 +14,5 @@ Run BankMarketCampaignModelingDocker.py in a Docker Container on a Remote Machin
 ```
 $ az ml computetarget attach remotedocker --name "myvm" --address "<id address>" --username "<username>" --password "<password>"
 $ az ml experiment prepare -c myvm
-$ az ml experiment submit -c myvm .code\marketcampaign\BankMarketCampaignModelingDocker.py
+$ az ml experiment submit -c myvm .\code\marketcampaign\BankMarketCampaignModelingDocker.py
 ```
