@@ -197,7 +197,7 @@ sudo apt-get install python-pip
 Only users with sudo access will be able to run docker commands. Optionally, add non-sudo access to the Docker socket by adding your user to the docker group.
 
 ```
-sudo usermod -a - G docker $(whoami)
+sudo usermod -a -G docker $(whoami)
 ```
 
 If you encounter "locale.Error: unsupported locale setting" error, perform the below export:
