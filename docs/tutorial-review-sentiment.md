@@ -263,8 +263,9 @@ python senti_schema_gen.py
 
 This will create senti_service_schema.json (this file contains the schema of the web service input)
 
-```
 Upload the below files to the vm (you could use scp to perform the upload):
+
+```
 conda_dependencies.yml
 model_30.pkl
 senti_service_schema.json
