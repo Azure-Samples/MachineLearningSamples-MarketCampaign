@@ -55,7 +55,7 @@ text_df.head()
 
 # Step 2 - Text Preprocessing
 
-stop_words_df = pd.read_csv('StopWords.csv')
+stop_words_df = pd.read_csv('.\data\StopWords.csv')
 stop_words = set(stop_words_df["Col1"].tolist())
 for item in string.ascii_lowercase: #load stop words
     if item != "i":
@@ -210,7 +210,7 @@ fig.savefig("./outputs/roc.png", bbox_inches='tight')
 
 print("ROC Curve Plotted")
 
-Step 5 - Prepare for deployment
+# Step 5 - Prepare for deployment
 
 # Export the deployment dependencies
 
