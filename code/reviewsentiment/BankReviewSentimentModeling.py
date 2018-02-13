@@ -43,7 +43,7 @@ print()
 
 # Load the bank review dataset
 
-text_df = pd.read_csv('BankReviewTrainingSample.csv')
+text_df = pd.read_csv('.\data\BankReviewTrainingSample.csv')
 text_df.head()
 
 text_df.columns = ['label_column', 'text_column'] #rename column names

@@ -90,7 +90,7 @@ REM list all Azure subscriptions you have access to.
 az account list -o table
 
 REM set the current Azure subscription to the one you want o use.
-az set account -s <subscriptionId>
+az account set -s <subscriptionId>
 
 REM verify your current subscription is set correctly
 az account show
@@ -99,7 +99,7 @@ az account show
 Once you are authenticated, type the following commands in the terminal window. 
 ```batch
 REM Kick off an execution of the BankMarketCampaignModeling.py file against local compute context
-az ml experiment submit -c local .\BankReviewSentimentModeling.py
+az ml experiment submit -c local .\code\reviewsentiment\BankReviewSentimentModeling.py
 ```
 This command executes the *BankReviewSentimentModeling.py* file locally. After the execution finishes, you should see the output in the CLI window. 
 
@@ -113,7 +113,7 @@ If you have a Docker engine running locally, in the command line window, repeat 
 
 ```batch
 REM execute against a local Docker container with Python context
-az ml experiment submit -c docker .\BankReviewSentimentModeling.py
+az ml experiment submit -c docker .\code\reviewsentiment\BankReviewSentimentModeling.py
 ```
 This command pulls down a base Docker image, lays a conda environment on that base image based on the _conda_dependencies.yml_ file in your_aml_config_ directory, and then starts a Docker container. It then executes your script. You should see some Docker image construction messages in the CLI window. And in the end, you should see the exact same output as step 5. You can find the _docker.runconfig_ file and _docker.compute_ file under _aml_config_ folder and examine the content to understand how they control the execution behavior. 
 
@@ -124,7 +124,11 @@ To execute your script in a Docker container on a remote Linux machine, you need
 Generate the _myvm.compute_ and _myvm.runconfig_ files by running the following command:
 ```batch
 REM create myvm compute target
-az ml computetarget attach --name myvm --address 52.187.129.184 --username ldsvmadmin --password <password> --type remotedocker
+az ml computetarget attach remotedocker --name "myvm" --address "<id address>" --username "<username>" --password "<password>"
+```
+Edit the generated _myvm.runconfig_ file under _aml_config_ and change the PrepareEnvironment from default false to true:
+```yaml
+"PrepareEnvironment": "true"
 ```
 Edit the generated _myvm.runconfig_ file under _aml_config_ and change the Framework from default PySpark to Python:
 ```yaml
@@ -140,7 +144,7 @@ az ml experiment prepare -c myvm
 Now issue the same command as you did before in the CLI window, except this time we will target _myvm_:
 ```batch
 REM execute in remote Docker container
-az ml experiment submit -c myvm .\BankReviewSentimentModeling.py
+az ml experiment submit -c myvm .\code\reviewsentiment\BankReviewSentimentModeling.py
 ```
 When the command is executed, the exact same thing happens as Step 6a except it happens on that remote machine. You should observe the exact same output information in the CLI window.
 
