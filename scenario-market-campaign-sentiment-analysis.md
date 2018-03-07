@@ -70,9 +70,9 @@ _Docs_: Contains end-to-end tutorial in the forms of jupyter notebook and markdo
 | data   | NA       | 'BankMarketCampaignTrainingSample.csv' |
 | code   | marketcampaign | 'BankMarketCampaignModeling.py', 'BankMarketCampaignModelingDocker.py' |
 |        | marketcampaign | 'market_schema_gen.py', 'market_score.py', 'market_service_schema.json', 'dt.pkl' |
-| docs   | notebook | 'BankMarketCampaignNoteBook.ipynb', 'BankMarketCampaignOperationalization.ipynb' |
-|        | media    | images  |
+| docs   | media    | images  |
 |        | NA       | [tutorial-market-campaign.md](docs/tutorial-market-campaign.md) |
+|        |          | 'BankMarketCampaignNoteBook.ipynb', 'BankMarketCampaignOperationalization.ipynb' |
 
 ### Part 2 - Review Sentiment Analysis
 
@@ -81,9 +81,9 @@ _Docs_: Contains end-to-end tutorial in the forms of jupyter notebook and markdo
 | data   | NA       | 'BankReviewTrainingSample.csv' |
 | code   | reviewsentiment | 'BankReviewSentimentModeling.py', 'BankReviewSentimentModelingDocker.py' |
 |        | reviewsentiment | 'senti_schema_gen.py', 'senti_score.py', 'senti_service_schema.json', 'model_30.pkl', 'stopwords.pkl' |
-| docs   | notebook | 'BankReviewSentimentNoteBook.ipynb', 'BankReviewSentimentOperationalization.ipynb' |
-|        | media    | images|
+| docs   | media    | images|
 |        | NA       | [tutorial-review-sentiment.md](docs/tutorial-review-sentiment.md)|
+|        |          | 'BankReviewSentimentNoteBook.ipynb', 'BankReviewSentimentOperationalization.ipynb' |
 
 Practice the end-to-end tutorial by following the [tutorial-market-campaign](docs/tutorial-market-campaign.md) and [tutorial-review-sentiment](docs/tutorial-review-sentiment.md)
 

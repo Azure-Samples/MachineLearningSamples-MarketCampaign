@@ -9,9 +9,6 @@ import pickle
 import sys
 import os
 
-import dataprep
-from dataprep.Package import Package
-
 import pandas as pd
 import numpy as np
 import csv
@@ -30,7 +27,6 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 from sklearn.cross_validation import train_test_split
 
 from azureml.logging import get_azureml_logger
-from azureml.dataprep.package import run
 
 # initialize the logger
 
