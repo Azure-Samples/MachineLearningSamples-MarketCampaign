@@ -1,5 +1,19 @@
 # Market Campaign Prediction with Sentiment Analysis using Azure Machine Learning
 
+In business, companies are commonly recruiting new customers through market campaign. As a result, marketing executives often find themselves trying to predict the likelihood of customer purchase and finding the necessary actions to maximize the purchase rate.
+
+The aim of this solution is to demonstrate predictive market analytics using AML Workbench. This solution provides an easy to use template to develop market campaign predictive data pipelines for retailers. The template can be used with different datasets and different definitions of success of market campaign. The aim of this tutorial is to:
+
+1. Understand AML Workbench's Data Preparation tools to ingest and pre-process customer relationship data for market campaign prediction and customer review data for sentiment analysis.
+
+2. Perform feature transformation to handle noisy heterogeneous market data.
+
+3. Perform Unigrams TF-IDF feature extraction to convert unstructured text review data.
+
+4. Train and validate various machine learning models (such as Logistic Regression, Support Vector Machine, Decision Tree) with hyper-parameter sweeping for predicting the success of market campaign, as well as predicting the sentiment score of customer review.
+
+5. Model operationalization.
+
 ## Link of the Gallery GitHub Repository
 
 Following is the link to the public GitHub repository where all the codes are hosted:
@@ -15,22 +29,6 @@ Following is the link to the public GitHub repository where all the codes are ho
 * For operationalization, it is best if you have Docker engine installed and running locally. If not, you can use the cluster option but be aware that running an Azure Container Service (ACS) can be expensive.
 
 * This Solution assumes that you are running Azure ML Workbench on Windows 10 with Docker engine locally installed. If you are using macOS the instruction is largely the same.
-
-## Introduction
-
-In business, companies are commonly recruiting new customers through market campaign. As a result, marketing executives often find themselves trying to predict the likelihood of customer purchase and finding the necessary actions to maximize the purchase rate.
-
-The aim of this solution is to demonstrate predictive market analytics using AML Workbench. This solution provides an easy to use template to develop market campaign predictive data pipelines for retailers. The template can be used with different datasets and different definitions of success of market campaign. The aim of this tutorial is to:
-
-1. Understand AML Workbench's Data Preparation tools to ingest and pre-process customer relationship data for market campaign prediction and customer review data for sentiment analysis.
-
-2. Perform feature transformation to handle noisy heterogeneous market data.
-
-3. Perform Unigrams TF-IDF feature extraction to convert unstructured text review data.
-
-4. Train and validate various machine learning models (such as Logistic Regression, Support Vector Machine, Decision Tree) with hyper-parameter sweeping for predicting the success of market campaign, as well as predicting the sentiment score of customer review.
-
-5. Model operationalization.
 
 ## Use Case Overview
 
