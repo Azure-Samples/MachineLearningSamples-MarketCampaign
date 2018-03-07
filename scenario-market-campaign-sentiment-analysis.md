@@ -95,7 +95,4 @@ This scenario gives an overview of how to perform market campaign prediction wit
 
 S. Moro, P. Cortez and P. Rita. A Data-Driven Approach to Predict the Success of Bank Telemarketing. Decision Support Systems, Elsevier, 62:22-31, June 2014.
 
-## Contact
-
-Please feel free to contact Fang Zhou (zhouf@microsoft.com) with any question or comment.
 
